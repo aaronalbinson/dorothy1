@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial;
+    font-size: 17px;
+    background-color: #101010;
+    overflow: hidden;
+}
+
+.video1, .video2, .video3{
+  position:absolute;
+  top: 0;
+  left:0;
+  height: 100vh;
+  width: 100vw;
+  background-color: #101010;
+}
+
+#video1, #video2, #video3{
+  width:100vw;
+  height: 100vh;
+}
+
+#myVideo {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+    max-width: 100%;
+}
+
+.content {
+    position: fixed;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    color: #f1f1f1;
+    width: 100%;
+    padding: 20px;
+}
+
+.signature {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  width: 45%;
+  z-index: 100;
+}
+
+.dorothy{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 99;
+  max-height: 90vh;
+}
+
+.closebutton{
+  display: block;
+  z-index: 1000;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: #FFFFFF;
+}
+
+.thumbnails {
+  width: 30%;
+  position: absolute;
+  right: 20px;
+  height: 100%;
+}
+
+.thumbnail {
+  position: relative;
+  z-index: 100;
+  height: 25%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.thumbnail img{
+  height: 90%;
+  width: auto;
+  float:right;
+}
+
+.thumbnail-margin{
+  
+}
+
+img.valogo{
+  width: auto;
+  height: 75%;
+  margin-top: 20px;
+}
+
+.info {
+  min-width: 300px;
+  margin-right: 30px;
+  color: #FFFFFF;
+  text-align: right;
+}
+
+.info p, .info h3 {
+  margin-bottom: 0;
+}
+
+.info h3 {
+  margin-top: 0;
+}
+
+.info p {
+  margin-top: 8px;
+}
+
+.video{
+  z-index: 600;
+  display:none;
+}
+
+</style>
+</head>
+<body>
+
+<video autoplay muted loop id="myVideo">
+  <source src="vid/backgroundvideo.mp4" type="video/mp4">
+  Your browser does not support HTML5 video.
+</video>
+
+<img class="signature" src="img/signature.png" />
+<img class="dorothy" src="img/dorothy.png" />
+
+
+<div class="thumbnails">
+  <div class="thumbnail thumbnail-margin">
+    <img class="valogo" src="img/vachildren.png" />
+  </div>
+  
+  <div id="thumb1" class="thumbnail thumb1 thumbnail-margin">
+    <div class="info">
+      <h3>Dorothy's Childhood</h3>
+      <p>(6 mins)</p>
+      <p>Dorothy's early life in Europe and how she fled to England.</p>
+    </div>
+    <img src="img/thumb1.png" />
+  </div>
+  <div class="thumbnail thumb2 thumbnail-margin">
+    <div class="info">
+      <h3>Children in Haifa Town</h3>
+      <p>(3 mins)</p>
+      <p>One of Dorothy's celebrated images and the recurring themes in her work.</p>
+    </div>
+    <img src="img/thumb2.png" />
+  </div>
+  <div class="thumbnail thumb3">
+    <div class="info">
+      <h3>Girl with Grandfather in Greece</h3>
+      <p>(2 mins)</p>
+      <p>A photograph woth waiting for and Dorothy's working practice.</p>
+    </div>
+    <img src="img/thumb3.png" />
+  </div>
+</div>
+
+<div class="video video1">
+  <div class="closebutton" id="close1">X CLOSE</div>
+  <video id="video1">
+    <source src="vid/daylight.mp4" type="video/mp4">
+  </video>
+</div>
+
+<div class="video video2">
+  <video autoplay muted loop id="video2">
+    <source src="vid/backgroundvideo.mp4" type="video/mp4">
+  </video>
+</div>
+
+<div class="video video3">
+  <video autoplay muted loop id="video3">
+    <source src="vid/backgroundvideo.mp4" type="video/mp4">
+  </video>
+</div>
+
+<script>
+let videoElem = document.getElementById("video1");
+let playButton = document.getElementById("thumb1");
+let closeButton = document.getElementById("close1");
+
+playButton.addEventListener("click", handlePlayButton, false);
+closeButton.addEventListener("click", handlePlayButton, false);
+playVideo();
+
+async function playVideo() {
+  try {
+    await videoElem.play();
+  } catch(err) {
+    videoElem.currentTime = 0;
+  }
+}
+
+function handlePlayButton() {
+  if (videoElem.paused) {
+    playVideo();
+  } else {
+    videoElem.pause();
+    setTimeout(function() {
+      videoElem.currentTime = 0;
+    }, 500);
+    
+  }
+}
+
+jQuery( document ).ready(function() {
+
+  jQuery(".thumb1").click(function(event){
+    event.preventDefault();
+    jQuery(".video1").fadeToggle("slow", "linear");
+  });
+  jQuery("#close1").click(function(event){
+    event.preventDefault();
+    jQuery(".video1").fadeToggle("slow", "linear");
+  });
+});
+
+
+</script>
+
+</body>
+</html>
